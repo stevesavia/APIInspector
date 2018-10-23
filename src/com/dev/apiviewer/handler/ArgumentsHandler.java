@@ -132,7 +132,7 @@ public class ArgumentsHandler {
 		  EnumSet<OptionTypes> optTypesEnumSet = createOptionsEnumSet();
 		  OptCombination optionComboSelected = OptCombination.none;
 		  
-		  System.out.println("optTypesEnumSet " + optTypesEnumSet);
+		  //System.out.println("optTypesEnumSet " + optTypesEnumSet);
 		  
 		  if (optTypesEnumSet.contains(OptionTypes.q) && optTypesEnumSet.contains(OptionTypes.l)) 
 			  optionComboSelected = OptCombination.ql;

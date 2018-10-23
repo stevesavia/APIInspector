@@ -26,8 +26,7 @@ public class ExtractJarsData extends ShellCommandSequence {
 			sb.append(" >> jar_contents.dat");
 			execCommands.add(sb.toString());
 		}
-		
-		System.out.println("\n@@@ execCommands: " + execCommands);
+		//System.out.println("\n@@@ execCommands: " + execCommands);
 	}
 	
 	

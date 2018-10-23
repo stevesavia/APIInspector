@@ -20,7 +20,7 @@ public class JarsDataHandler implements ExecCommand {
 	    	
 	    	if (optJarList.isPresent()) {
 	    		jarList = optJarList.get();
-	    		System.out.println("\n@@@ jarList: " + jarList);
+	    		//System.out.println("\n@@@ jarList: " + jarList);
 	    	}
 	    	else {
 	    		System.out.println("\nNo Jars found");

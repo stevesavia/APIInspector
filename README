@@ -1,0 +1,48 @@
+The command-line utility APIInspector exposes details of classes within the core Java API for quick reference 
+without the need for a browser e.g. for a reminder of a method signature, or it may serve as a search tool to 
+procure data that can then be explored further on a browser.
+
+Also any class types within JARs that are configured in the build path are exposed to the inspector mechanism 
+in the same manner.
+
+It employs reflection to allow the printout of all methods and constructors for any of the reference types 
+specified (classes, interfaces or annotations). Normally, programs that do this are very simple but require 
+the user to enter the fully qualified name, e.g.  'javax.management.remote.rmi.RMIConnectionImpl_Stub'.
+Here, the user is able to specify just the simple name e.g. 'RMIConnectionImpl_Stub' 
+
+Examples of useage:
+java hAPIHawk javax.management.remote.rmi.RMIConnectionImpl_Stub
+java hAPIHawk RMIConnectionImpl_Stub      -as above, signatures with simple names
+java hAPIHawk RMIConnectionImpl_Stub -q   -yields signatures with qualified names
+java hAPIHawk RMIConnectionImpl_Stub u    -methods containing "u" in name
+java hAPIHawk RMIConnectionImpl_Stub notify -q    -methods containing "notify", qualified sig. 
+java hAPIHawk -q RMIConnectionImpl_Stub     -options can appear in any order
+java hAPIHawk RMI -l      -list all reference types in API beginning with "RMI"
+java hAPIHawk RMI -l -q   -as above, qualified signatures
+java hAPIHawk rmi -p      -diagnosis of package 'rmi', listing, for each occurrence in the API, parent 
+                           packages, subpackages, and any reference types contained directly in the package
+
+
+Current Limitations:
+The program uses a mapping from simple to qualified name, via the hard-coded file 'simpleToQualifiedNames.dat'. 
+This maps all 3791 types found in the site 'http://docs.oracle.com/javase/6/docs/api/' - for platform SE6. This 
+reflects the fact that the code was originally written in 2012 (apart from the recent addition of the 
+functionality to include JARs and a general refactor). 
+
+It is intended to update the project to work for more recent or for any java version, and also to avoid using 
+hard-coded values in 'simpleToQualifiedNames.dat'.
+The auxilliary files 'jar_contents.dat' and 'JarsSimpleToQualifiedNames.dat' (used for JARs) are generated 
+programatically, and the same should be the case with 'simpleToQualifiedNames.dat' (used for core Java).
+
+The latter could theoretically be done by calling java -verbose:class. However, this appears to only include a
+fraction of the required core Java classes, so must be considered unreliable. 
+
+A better approach would be to add a web scraping functionality that may then be pointed to any Javadoc sites 
+and hence make API documentation access extensible to any Java libraries or to any version of core Java. The
+target libraries could then be determined by a text configuration file, in addition to the presence of JAR 
+files in the build path as at present. Of course, the API for the most up-to-date Java version would be 
+included by default 
+
+Possible other future development and options:
+  - introduce option -f to print output to a text file
+  - use of a GUI, triggered by a -g option 

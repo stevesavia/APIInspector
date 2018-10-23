@@ -10,7 +10,8 @@ public class ReflectionHandler {
 	private final static Pattern stripQualifiersPattern = Pattern.compile("\\w+\\.");
 	
 	
-	  /*	
+	
+	/*	
 	   * Enter reference type name and use reflection to print signatures of all
 	   * constructors and methods, or, if second argument is a selector string (which 
 	   * may be only one character), print only those methods containing this string
@@ -29,27 +30,44 @@ public class ReflectionHandler {
 			  Method[] methods = refName.getMethods();
 			  String simpleName = "", methodString = "";
 			  String[] sa;
+			  StringBuffer sb = new StringBuffer();
 			  
 			  if (reducedArgs.length == 1) {
-				  System.out.println();
-				  System.out.println("Constructors for " + refName.toString() + ":");
+				  sb.append("\n");
+				  sb.append("Constructors for ");
+				  sb.append(refName.toString());
+				  sb.append(":");
+				  sb.append("\n");
+				  
 				  for (Constructor c : constructors) {
 					  simpleName = stripQualifiersPattern.matcher(c.toString()).replaceAll("");
-					  System.out.println("  " + simpleName);
+					  sb.append("  ");
+					  sb.append(simpleName);
+					  sb.append("\n");
 				  }
-				  System.out.println();
-				  System.out.println("Methods for " + refName.toString() + ":");
+				  sb.append("\n");
+				  sb.append("Methods for ");
+				  sb.append(refName.toString());
+				  sb.append(":");
+				  sb.append("\n");
+				  
 				  for (Method m : methods) {
 					  simpleName = stripQualifiersPattern.matcher(m.toString()).replaceAll("");
-					  System.out.println("  " + simpleName);
+					  sb.append("  ");
+					  sb.append(simpleName);
+					  sb.append("\n");
 				  }
 			  }
 			  
 			  // Second argument is word for method lookup
 			  if (reducedArgs.length == 2) {
-				  System.out.println();
-				  System.out.println("Methods for " + refName.toString() + 
-	                          " containing letter sequence \"" + reducedArgs[1] + "\":");
+				  sb.append("\n");
+				  sb.append("Methods for ");
+				  sb.append(refName.toString());
+				  sb.append(" containing letter sequence ");
+				  sb.append(reducedArgs[1]);
+				  sb.append(":");
+				  sb.append("\n");
 				  
 				  for (Method m : methods) {
 					  //Qualified method name and signature contain query string
@@ -66,18 +84,22 @@ public class ReflectionHandler {
 						  //Only test match for query string against simple method name
 						  if (methodString.indexOf(reducedArgs[1]) != -1) { 
 							  simpleName = stripQualifiersPattern.matcher(m.toString()).replaceAll("");
-							  System.out.println("  " + simpleName);
+							  sb.append("  ");
+							  sb.append(simpleName);
+							  sb.append("\n");
 						  }
 					  }
 				  }
 			  }
+			  System.out.println(sb);
 		  } 
 		  catch (ClassNotFoundException e) {
 			  System.out.println("Class undetected: " + e);
 			  System.out.println("typeName entered: " + typeName);
 		  }
 	  }
-	 
+	
+	  
 	  
 	  
 	  /*
@@ -99,25 +121,42 @@ public class ReflectionHandler {
 			  Method[] methods = refName.getMethods();
 			  String methodString = "";
 			  String[] sa;
+			  StringBuffer sb = new StringBuffer();
+			  
 			  if (reducedArgs.length == 1) {
-				  System.out.println();
-				  System.out.println("Constructors for " + refName.toString() + ":");
+				  sb.append("\n");
+				  sb.append("Constructors for ");
+				  sb.append(refName.toString());
+				  sb.append(":");
+				  sb.append("\n");
 				  for (Constructor c : constructors) {
-					  System.out.println("  " + c.toString());
+					  sb.append("  ");
+					  sb.append(c.toString());
+					  sb.append("\n");
 				  }
-				  System.out.println();
-				  System.out.println("Methods for " + refName.toString() + ":");
+				  sb.append("\n");
+				  sb.append("Methods for ");
+				  sb.append(refName.toString());
+				  sb.append(":");
+				  sb.append("\n");
 				  for (Method m : methods) {
-					  System.out.println("  " + m.toString());
+					  sb.append("  ");
+					  sb.append(m.toString());
+					  sb.append("\n");
 				  }
 			  }
 			  
 			  // Second arguement is word for method lookup
 			  if (reducedArgs.length == 2) {
-				  System.out.println();
-				  System.out.println("Methods for " + refName.toString() + 
-						  " containing letter sequence \"" + reducedArgs[1] + "\":");
-	        
+				  sb.append("\n");
+				  sb.append("Methods for ");
+				  sb.append(refName.toString());
+				  sb.append(" containing letter sequence ");
+				  sb.append(reducedArgs[1]);
+				  sb.append(":");
+				  sb.append("\n");
+				  
+				  
 				  for (Method m : methods) {
 					  //Qualified method name and signature contain query string
 					  if (m.toString().indexOf(reducedArgs[1]) != -1) {
@@ -131,16 +170,19 @@ public class ReflectionHandler {
 						  methodString = sa[sa.length - 1]; //Reduced to simple method name and parameters
 						  //Only test match for query string against simple method name
 						  if (methodString.indexOf(reducedArgs[1]) != -1) { 
-							  System.out.println("  " + m.toString());
+							  sb.append("  ");
+							  sb.append(m.toString());
+							  sb.append("\n");
 						  }
 					  }
 				  }
 			  }
+			  System.out.println(sb);
 		  } 
 		  catch (ClassNotFoundException e) {
 			  System.out.println("# Class undetected: " + e);
 			  System.out.println("# typeName entered: " + typeName);
 		  }
 	  }
-
+	  
 }

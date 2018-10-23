@@ -23,7 +23,7 @@ public class ShellCommandSequence implements ExecCommand {
 		for (String execCommand : execCommands) {
 			String[] cmd = {"/bin/sh", "-c", execCommand};
 			
-			System.out.println("ShellCommandSequence executing: " + execCommand);
+			//System.out.println("ShellCommandSequence executing: " + execCommand);
 			
 			try {
 				Runtime.getRuntime().exec(cmd);
